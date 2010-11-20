@@ -1,4 +1,4 @@
 <?php
-$meta['plantuml_jar'] = array('string');
-$meta['toolbar_icon_enabled'] = array('onoff');
+$meta['icon_enabled'] = array('onoff');
 $meta['toolbar_icon'] = array('string');
+$meta['jar_folder'] = array('string');

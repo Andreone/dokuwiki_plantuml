@@ -21,15 +21,21 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
 	private $width;
 	private $height;
 	private $storedir;
-
+	private $jar_path;
+	
     function __construct() {
         // parent::__construct();
 		global $conf;
 		$this->storedir = $conf['mediadir'] . '/plantuml/';
+
+		// when the path of the plantuml jar folder is not set, asssume the jar is in the plugin folder
+		$this->jar_path = trim($this->getConf('jar_path'));
+		if(!strlen($this->jar_path)) {
+			$this->jar_path = realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'plantuml_jar';
+		}
     }	
 
-
-   /**
+    /**
      * What kind of syntax are we?
      */
     function getType() {
@@ -149,7 +155,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
 		$h = fopen($tempFileName, "w+");
 		fwrite($h, $data);
 		fclose($h);
-        $retval = exec('java -jar '.$this->getConf('plantuml_jar').' -o '.$destdir.' '.$tempFileName);
+        $retval = exec('java -jar '.$this->jar_path.' -o '.$destdir.' '.$tempFileName);
         unlink($tempFileName);
         return $retval == 0;
     }
