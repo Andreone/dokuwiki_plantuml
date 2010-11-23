@@ -2,8 +2,9 @@
 /**
  * PlantUML-Plugin: Parses plantuml blocks to render images and html
  *
- * @license	GPL v3 (http://www.gnu.org/licenses/gpl.html)
- * @author	Andreone
+ * @license GPL v3 (http://www.gnu.org/licenses/gpl.html)
+ * @author  Andreone
+ * @author  Willi Schönborn (w.schoenborn@googlemail.com)
  * @version 0.2
  */
 
@@ -60,7 +61,8 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
         $this->Lexer->addExitPattern('@enduml','plugin_plantuml');
     }
 
-    /**     * Handle the match
+    /**
+     * Handle the match
      */
 
     function handle($match, $state, $pos, &$handler) {
@@ -149,15 +151,17 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
         return false;
     }
 
-    function createImage($destdir, $hash, &$data) 
-    {
-        $tempFileName = sys_get_temp_dir() . $hash . '.txt';
-		$h = fopen($tempFileName, "w+");
-		fwrite($h, $data);
-		fclose($h);
-        $retval = exec('java -jar '.$this->jar_path.' -o '.$destdir.' '.$tempFileName);
-        unlink($tempFileName);
-        return $retval == 0;
+    function createImage($destdir, $hash, &$data) {
+        $temp_file = sys_get_temp_dir() . "$hash.txt";
+        $f = fopen($temp_file, 'w+');
+        fwrite($f, $data);
+        fclose($f);
+        $command = "java -Djava.awt.headless=true -jar {$this->jar_path} -o $destdir $temp_file 2>&1";
+        $output = array();
+        exec($command, $output, $return_value);
+        // print output in case of error
+        unlink($temp_file);
+        return $return_value == 0;
     }
 	
 	// get custom width and height
