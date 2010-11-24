@@ -2,8 +2,8 @@
 /**
  * PlantUML-Plugin: Add a toolbar button to insert a plantuml block
  *
- * @license	GPL v3 (http://www.gnu.org/licenses/gpl.html)
- * @author	Andreone
+ * @license   GPL v3 (http://www.gnu.org/licenses/gpl.html)
+ * @author    Andreone
  * @version 0.2
  */
 
@@ -21,20 +21,20 @@ class action_plugin_plantuml extends DokuWiki_Action_Plugin {
      * Register the event handler
      */
     function register(&$controller) {
-		if($this->getConf('toolbar_button_enabled') == '1')
-			$controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'insert_button', array ());
+        if($this->getConf('toolbar_button_enabled') == '1')
+            $controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'insert_button', array ());
     }
  
     /**
      * Inserts the toolbar button
      */
     function insert_button(& $event, $param) {
-		$sample .= PHP_EOL.'<you can specify a display size by putting w=N[%] h=N[%] after the start tag (on the same line separated with a space)'.PHP_EOL;
-		$sample .= 'title <put the title of the schema here>'.PHP_EOL;
-		$sample .= PHP_EOL.'put the implementation of the schema here'.PHP_EOL;
-		$sample .= 'checkout http://plantuml.sourceforge.net for language details'.PHP_EOL;
+        $sample .= PHP_EOL.'<you can specify a display size by putting w=N[%] h=N[%] after the start tag (on the same line separated with a space)'.PHP_EOL;
+        $sample .= 'title <put the title of the schema here>'.PHP_EOL;
+        $sample .= PHP_EOL.'put the implementation of the schema here'.PHP_EOL;
+        $sample .= 'checkout http://plantuml.sourceforge.net for language details'.PHP_EOL;
 
- 		$event->data[] = array (
+         $event->data[] = array (
             'type' => 'format',
             'title' => $this->getLang('plantuml_tooltip'),
             'icon' => '../../plugins/plantuml/'.$this->getConf('toolbar_button_icon'),
