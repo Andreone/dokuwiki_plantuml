@@ -1,6 +1,4 @@
 <?php
-$lang['plantuml_jar']='Full path to the plantuml jar';
-$lang['toolbar_button_enabled']='Add a button to the editor toolbar?';
-$lang['toolbar_button_icon']='Image file to draw on the button (relative path from the plugin directory)';
 
-$lang['plantuml_tooltip']='Insert an UML graph';
+$lang['tooltip'] = 'Insert a UML graph';
+
