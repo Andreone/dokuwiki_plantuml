@@ -4,7 +4,6 @@
  *
  * @license	GPL v3 (http://www.gnu.org/licenses/gpl.html)
  * @author	Andreone
- * @version 0.2
  */
 
 if (!defined('DOKU_INC')) die();
@@ -36,8 +35,8 @@ class action_plugin_plantuml extends DokuWiki_Action_Plugin {
 
  		$event->data[] = array (
             'type' => 'format',
-            'title' => $this->getLang('plantuml_tooltip'),
-            'icon' => '../../plugins/plantuml/'.$this->getConf('toolbar_button_icon'),
+            'title' => htmlspecialchars($this->getLang('plantuml_tooltip')),
+            'icon' => '../../plugins/plantuml/'.$this->getConf('toolbar_icon'),
             'open' => '@startuml',
             'close' => '@enduml',
             'sample' => $sample,
