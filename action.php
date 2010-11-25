@@ -19,7 +19,7 @@ class action_plugin_plantuml extends DokuWiki_Action_Plugin {
      */
     function register(&$controller) {
         if ($this->getConf('button_enabled') == '1') {
-            $controller->register_hook(TOOLBAR_DEFINE, AFTER, $this, 'insert_button', array());
+            $controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'insert_button', array());
         }
     }
  
