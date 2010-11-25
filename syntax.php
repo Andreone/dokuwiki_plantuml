@@ -56,26 +56,30 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
         $conf = array_shift($lines);
         array_pop($lines);
 
-        // match config options
+        // alignment
         if (preg_match('/\b(left|center|right)\b/i', $conf, $match)) {
             $return['align'] = $match[1];
         }
+
+        // size
         if (preg_match('/\b(\d+)x(\d+)\b/', $conf, $match)) {
             $return['width'] = $match[1];
             $return['height'] = $match[2];
+        } else {
+            if (preg_match('/\b(?:width|w)=([0-9]+)\b/i', $conf, $match)) {
+                $return['width'] = $match[1];
+            }
+            if (preg_match('/\b(?:height|h)=([0-9]+)\b/i', $conf, $match)) {
+                $return['height'] = $match[1];
+            }
         }
-        if (preg_match('/\b(?:width|w)=([0-9]+)\b/i', $conf, $match)) {
-            $return['width'] = $match[1];
-        }
-        if (preg_match('/\b(?:height|h)=([0-9]+)\b/i', $conf, $match)) {
-            $return['height'] = $match[1];
-        }
-        // single word titles
+
+        // size
         if (preg_match('/\b(?:title|t)=(.+?)\b/i', $conf, $match)) {
+            // single word titles
             $return['title'] = $match[1];
-        }
-        // multi word titles
-        if (preg_match('/(?:title|t)="(.+?)"/i', $conf, $match)) {
+        } else if (preg_match('/(?:title|t)="([\w.]+)"/i', $conf, $match)) {
+            // multi word titles
             $return['title'] = $match[1];
         }
 
