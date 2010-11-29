@@ -2,7 +2,7 @@
 /**
  * PlantUML-Plugin: Add a toolbar button to insert a plantuml block
  *
- * @license	GPL v2 (http://www.gnu.org/licenses/gpl.html)
+ * @license	GPL v3 (http://www.gnu.org/licenses/gpl.html)
  * @author	Andreone
  */
 
@@ -15,7 +15,7 @@ require_once (DOKU_PLUGIN . 'action.php');
  * need to inherit from this class
  */
 class action_plugin_plantuml extends DokuWiki_Action_Plugin {
- 
+
     /**
      * Register the event handler
      */
