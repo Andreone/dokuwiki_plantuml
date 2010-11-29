@@ -2,7 +2,7 @@
 /**
  * PlantUML-Plugin: Parses plantuml blocks to render images
  *
- * @license	GPL v3 (http://www.gnu.org/licenses/gpl.html)
+ * @license	GPL v2 (http://www.gnu.org/licenses/gpl.html)
  * @author	Andreone
  */
 

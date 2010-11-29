@@ -2,7 +2,7 @@
 /**
  * PlantUML-Plugin: Add a toolbar button to insert a plantuml block
  *
- * @license	GPL v3 (http://www.gnu.org/licenses/gpl.html)
+ * @license	GPL v2 (http://www.gnu.org/licenses/gpl.html)
  * @author	Andreone
  */
 
