@@ -59,7 +59,8 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
         $this->Lexer->addExitPattern('@enduml','plugin_plantuml');
     }
 
-    /**     * Handle the match
+    /**
+     * Handle the match
      */
 
     function handle($match, $state, $pos, &$handler) {
