@@ -1,3 +1,3 @@
 <?php
-$lang['tooltip'] = 'New UML Graph';
 
+$lang['tooltip'] = 'New UML Graph';
