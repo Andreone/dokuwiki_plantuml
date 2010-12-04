@@ -2,7 +2,6 @@
 /**
  * @license GPL v2 (http://www.gnu.org/licenses/gpl.html)
  * @author  Willi Schönborn (w.schoenborn@googlemail.com)
- * @version 0.3
  */
 
 if (!defined('DOKU_INC')) define('DOKU_INC', dirname(__FILE__) . '/../../../');
