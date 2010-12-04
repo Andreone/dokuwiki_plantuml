@@ -37,3 +37,6 @@ By default, html img title attribute is set to "PlantUML Graph". You can specify
 
 Note: Multiple words need to be placed in double quotes.
 
+
+# Contributors
+* [Willi Schönborn](https://github.com/whiskeysierra): rewrite of the syntax plugin with many additional features
