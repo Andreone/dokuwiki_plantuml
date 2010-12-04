@@ -1,4 +1,7 @@
 <?php
-$meta['toolbar_button_enabled'] = array('onoff');
-$meta['toolbar_icon'] = array('string');
-$meta['jar_path'] = array('string');
+
+$meta['java'] = array('string');
+$meta['jar'] = array('string');
+$meta['remote_url'] = array('string');
+$meta['toolbar_button_icon'] = array('string');
+$meta['toolbar_icon_enabled'] = array('onoff');
