@@ -140,9 +140,9 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
         // create the file if needed
         if (!file_exists($cache)) {
             $in = $this->_cachename($data, 'txt');
-            if ($this->getConf('remote_url')) {
+            if ($this->getConf('render_local') == '0' && $this->getConf('remote_url')) {
                 $ok = $this->_remote($data, $in, $cache);
-            } else if ($this->getConf('java')) {
+            } else if ($this->getConf('render_local') == '1' && $this->getConf('java')) {
                 $ok = $this->_local($data, $in, $cache);
             } else {
                 return false;
@@ -248,6 +248,5 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             return false;
         }
     }
-    
 }
 
