@@ -20,26 +20,21 @@ class action_plugin_plantuml extends DokuWiki_Action_Plugin {
      * Register the event handler
      */
     function register(&$controller) {
-		if($this->getConf('button_enabled') == '1')
-			$controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'insert_button', array ());
+      if($this->getConf('button_enabled') == '1')
+        $controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'insert_button', array ());
     }
  
     /**
      * Inserts the toolbar button
      */
     function insert_button(& $event, $param) {
-		$sample .= PHP_EOL.'<you can specify a display size by putting w=N[%] h=N[%] after the start tag (on the same line separated with a space)'.PHP_EOL;
-		$sample .= 'title <put the title of the schema here>'.PHP_EOL;
-		$sample .= PHP_EOL.'put the implementation of the schema here'.PHP_EOL;
-		$sample .= 'checkout http://plantuml.sourceforge.net for language details'.PHP_EOL;
-
  		$event->data[] = array (
             'type' => 'format',
             'title' => htmlspecialchars($this->getLang('tooltip')),
             'icon' => '../../plugins/plantuml/'.$this->getConf('button_icon'),
             'open' => '<uml>',
             'close' => '</uml>',
-            'sample' => $sample,
+            'sample' => '',
         );
     }
 }
