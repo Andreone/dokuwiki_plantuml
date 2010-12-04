@@ -22,6 +22,5 @@ if ($cache) {
 } else {
     header('HTTP/1.0 404 Not Found');
     header('Content-Type: image/png');
-    echo io_readFile('file-broken/file-broken.png', false);
+    echo io_readFile('res/file-broken/file-broken.png', false);
 }
-

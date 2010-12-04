@@ -20,7 +20,7 @@ class action_plugin_plantuml extends DokuWiki_Action_Plugin {
      * Register the event handler
      */
     function register(&$controller) {
-		if($this->getConf('toolbar_button_enabled') == '1')
+		if($this->getConf('button_enabled') == '1')
 			$controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'insert_button', array ());
     }
  
@@ -35,10 +35,10 @@ class action_plugin_plantuml extends DokuWiki_Action_Plugin {
 
  		$event->data[] = array (
             'type' => 'format',
-            'title' => htmlspecialchars($this->getLang('plantuml_tooltip')),
-            'icon' => '../../plugins/plantuml/'.$this->getConf('toolbar_icon'),
-            'open' => '@startuml',
-            'close' => '@enduml',
+            'title' => htmlspecialchars($this->getLang('tooltip')),
+            'icon' => '../../plugins/plantuml/'.$this->getConf('button_icon'),
+            'open' => '<uml>',
+            'close' => '</uml>',
             'sample' => $sample,
         );
     }
