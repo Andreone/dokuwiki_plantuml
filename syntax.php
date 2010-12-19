@@ -111,6 +111,17 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
     function render($mode, &$renderer, $data) {
         if ($mode == 'xhtml') {
             $img = DOKU_BASE . 'lib/plugins/plantuml/img.php?' . buildURLParams($data);
+            
+            if($data['width']) {
+                $temp = $data['width'];
+                $data['width'] = 0;
+                $img_unresized = DOKU_BASE . 'lib/plugins/plantuml/img.php?' . buildURLParams($data);
+                $data['width'] = $temp;
+            } else {
+                $img_unresized = $img;
+            }
+            
+            $renderer->doc .= '<a title="' . $data['title'] . '" class="media" href="' . $img_unresized . '">';
             $renderer->doc .= '<img src="' . $img . '" class="media' . $data['align'] . '" title="' . $data['title'] . '" alt="' . $data['title'] .  '"';
             if ($data['width']) {
                 $renderer->doc .= ' width="' . $data['width'] . '"';
@@ -124,7 +135,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             if ($data['align'] == 'right') {
                 $renderer->doc .= ' align="right"';
             }
-            $renderer->doc .= '/>';
+            $renderer->doc .= '/></a>';
             return true;
         } else if ($mode == 'odt') {
             $src = $this->_imgfile($data);
@@ -137,6 +148,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
 
     /**
      * Return path to the rendered image on our local system
+     * Note this is also called by img.php
      */
     function _imgfile($data) {
         $cache = $this->_cachename($data, 'png');
