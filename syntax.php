@@ -39,6 +39,10 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
      * Handle the match
      */
     function handle($match, $state, $pos, &$handler) {
+        // echo "handle: state=$state<br>";
+        // echo "handle: match=$match<br>";
+        // echo "handle: pos=$pos<br>";
+
         $info = $this->getInfo();
 
         // prepare default data
@@ -56,30 +60,30 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
         array_pop($lines);
 
         // alignment
-        if (preg_match('/\b(left|center|right)\b/i', $conf, $match)) {
-            $return['align'] = $match[1];
+        if (preg_match('/\b(left|center|right)\b/i', $conf, $matches)) {
+            $return['align'] = $matches[1];
         }
 
         // size
-        if (preg_match('/\b(\d+)x(\d+)\b/', $conf, $match)) {
-            $return['width'] = $match[1];
-            $return['height'] = $match[2];
+        if (preg_match('/\b(\d+)x(\d+)\b/', $conf, $matches)) {
+            $return['width'] = $matches[1];
+            $return['height'] = $matches[2];
         } else {
-            if (preg_match('/\b(?:width|w)=([0-9]+)\b/i', $conf, $match)) {
-                $return['width'] = $match[1];
+            if (preg_match('/\b(?:width|w)=([0-9]+)\b/i', $conf, $matches)) {
+                $return['width'] = $matches[1];
             }
-            if (preg_match('/\b(?:height|h)=([0-9]+)\b/i', $conf, $match)) {
-                $return['height'] = $match[1];
+            if (preg_match('/\b(?:height|h)=([0-9]+)\b/i', $conf, $matches)) {
+                $return['height'] = $matches[1];
             }
         }
 
-        // size
-        if (preg_match('/\b(?:title|t)=(.+?)\b/i', $conf, $match)) {
+        // title
+        if (preg_match('/\b(?:title|t)=(\w+)\b/i', $conf, $matches)) {
             // single word titles
-            $return['title'] = $match[1];
-        } else if (preg_match('/(?:title|t)="([\w.]+)"/i', $conf, $match)) {
+            $return['title'] = $matches[1];
+        } else if (preg_match('/(?:title|t)="([\w+\s+]+)"/i', $conf, $matches)) {
             // multi word titles
-            $return['title'] = $match[1];
+            $return['title'] = $matches[1];
         }
 
         $input = join("\n", $lines);
