@@ -8,11 +8,11 @@ date    2010-12-04
 
   * Complete rewrite.
   * Images are now saved in the cache folder.
-  * Remote image generation support (default to http://plantuml.no-ip.org/plantuml/uml)
+  * Remote image generation support (defaults to http://plantuml.no-ip.org/plantuml/uml)
   * Alignment support.
-  * Odt support.
+  * Odt rendering support.
 ____
 
 date    2010-10-08
 
-  * Very first version posted on GitHub.    
+  * Very first version posted on GitHub.
