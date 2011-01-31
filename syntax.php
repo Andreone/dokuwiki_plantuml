@@ -69,8 +69,9 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             $return['width'] = $matches[1];
             $return['height'] = $matches[2];
         } else {
-            if (preg_match('/\b(?:width|w)=([0-9]+)\b/i', $conf, $matches)) {
+            if (preg_match('/\b(?:width|w)=([0-9]+)(%?)/i', $conf, $matches)) {
                 $return['width'] = $matches[1];
+                $return['percent'] = $matches[2];
             }
             if (preg_match('/\b(?:height|h)=([0-9]+)\b/i', $conf, $matches)) {
                 $return['height'] = $matches[1];
@@ -124,7 +125,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             $renderer->doc .= '<a title="' . $data['title'] . '" class="media" href="' . $img_unresized . '">';
             $renderer->doc .= '<img src="' . $img . '" class="media' . $data['align'] . '" title="' . $data['title'] . '" alt="' . $data['title'] .  '"';
             if ($data['width']) {
-                $renderer->doc .= ' width="' . $data['width'] . '"';
+                $renderer->doc .= ' width="' . $data['width'] . $data['percent'] . '"';
             }
             if ($data['height']) {
                 $renderer->doc .= ' height="' . $data['height'] . '"';
@@ -168,7 +169,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             clearstatcache();
         }
 
-        if ($data['width']) {
+        if ($data['width'] && $data['percent'] != '%') {
             $cache = media_resize_image($cache, 'png', $data['width'], $data['height']);
         }
 

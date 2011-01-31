@@ -27,6 +27,8 @@ Inside the start tag *`<uml>`*, you can specify the width and/or height of the i
 
     <uml w=100>
     <uml width=100>
+    <uml w=80%>
+    <uml width=80%>
     <uml 100x200>
 
 # Image Title
