@@ -1,3 +1,8 @@
+date    2011-03-19
+
+  * Fixed issue #10 (plantuml base field should be lowercase)
+____
+  
 date    2011-01-31
 
   * Allowed width in percent (w=80%)

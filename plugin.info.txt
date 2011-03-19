@@ -1,4 +1,4 @@
-base    PlantUML
+base    plantuml
 author  Nicolas FAUVET
 email   nfauvet@free.fr
 date    2011-01-31
