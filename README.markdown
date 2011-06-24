@@ -11,16 +11,20 @@ It allows to generate UML graph images from simple description text block.
 
 # Requirements (for local PlantUML installation)
 * [plantuml.jar](http://plantuml.sourceforge.net/download.html)
-* [Graphwiz](http://www.graphviz.org)
 * [Java runtime](http://www.java.com/download)
+* [Graphviz](http://www.graphviz.org) _You don't need this if you only want to generate sequence diagrams_
 
 # Sample
-This block will generate a sequence diagram:
+This block describes a sequence diagram:
 
     <uml>
     Alice -> Bob: Authentication Request  
     Bob -> Alice: Authentication Response  
-    </uml> 
+    </uml>
+
+and results in:
+
+![Sample](http://plantuml.sourceforge.net/img/sequence_img001.png)
 
 # Control display size
 Inside the start tag *`<uml>`*, you can specify the width and/or height of the image using one of the following ways:
