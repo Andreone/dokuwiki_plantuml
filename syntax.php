@@ -193,7 +193,6 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
         $base_url = preg_replace('/(.+?)\/$/', '$1', $remote_url);
 
         $java = $this->getConf('java');
-
         if ($java) {
             // use url compression if java is available
             $jar = $this->getConf('jar');
@@ -224,6 +223,8 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             $uml = str_replace("\n@enduml", '', $uml);
             $uml = str_replace("\n", '/', $uml);
             $uml = urlencode($uml);
+            // decode encoded slashes (or plantuml server won't understand)
+            $uml = str_replace('%2F', '/', $uml);
 
             $url = "$base_url/startuml/$uml";
         }
@@ -265,5 +266,16 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             return false;
         }
     }
+    
+    /**
+     * Dumps a message in a log file (named dokuwiki_plantuml.log and located in the Dokuwidi's cache directory)
+     */
+    function _log($text) {
+        global $conf;
+        $hFile = fopen($conf['cachedir'].'/dokuwiki_plantuml.log', a);
+        if(hFile) {
+            fwrite($hFile, $text . "\r\n");
+            fclose($hFile);
+        }
+    }
 }
-
