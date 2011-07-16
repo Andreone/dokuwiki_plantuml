@@ -1,6 +1,6 @@
 date    2011-07-16
 
-  * Fixed bug: PlantUML server rendering was notworking due to encoding (slashes were converted to %2F and PlantUML doesn't like that)
+  * Fixed bug: PlantUML server rendering was not working due to encoding (slashes were converted to %2F and PlantUML doesn't like that)
 ____
   
 date    2011-03-19
