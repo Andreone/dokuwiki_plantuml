@@ -9,10 +9,21 @@ It allows to generate UML graph images from simple description text block.
 * Control the display witdh, height and alignment.
 * Works with the PlantUML webservice and/or a local installation.
 
-# Requirements (for local PlantUML installation)
+# Local Rendering
+
+Requirements (for local PlantUML installation):
 * [plantuml.jar](http://plantuml.sourceforge.net/download.html)
 * [Java runtime](http://www.java.com/download)
 * [Graphviz](http://www.graphviz.org) _You don't need this if you only want to generate sequence diagrams_
+
+See [PlantUML Installation Notes](http://plantuml.sourceforge.net/faqinstall.html) for troubleshooting.
+
+# Remote Rendering
+
+The plugin can use PlantUML server to generate diagrams. So nothing is required to be installed on the server running DokuWiki.
+However, the server must have a access to the Web. This can be an issue if you're on a Corporate network for example.
+
+If you set java and plantuml location in the configuration (in the Administration section of DokuWiki), then java will be used to compress the url.
 
 # Sample
 This block describes a sequence diagram:
