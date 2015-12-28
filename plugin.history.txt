@@ -1,3 +1,8 @@
+date    2015-12-28
+
+  * Support generation of SVG images instead of PNG for display on webpage. These can include links and scale well
+____
+
 date    2011-07-16
 
   * Fixed bug: PlantUML server rendering was not working due to encoding (slashes were converted to %2F and PlantUML doesn't like that)
