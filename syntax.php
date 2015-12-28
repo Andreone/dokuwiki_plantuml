@@ -145,21 +145,21 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
                 }
                 $renderer->doc .= '/>';
             } else {
-            $renderer->doc .= '<a title="' . $data['title'] . '" class="media" href="' . $img_unresized . '">';
-            $renderer->doc .= '<img src="' . $img . '" class="media' . $data['align'] . '" title="' . $data['title'] . '" alt="' . $data['title'] .  '"';
-            if ($data['width']) {
-                $renderer->doc .= ' width="' . $data['width'] . $data['percent'] . '"';
-            }
-            if ($data['height']) {
-                $renderer->doc .= ' height="' . $data['height'] . '"';
-            }
-            if ($data['align'] == 'left') {
-                $renderer-> doc .= ' align="left"';
-            }
-            if ($data['align'] == 'right') {
-                $renderer->doc .= ' align="right"';
-            }
-            $renderer->doc .= '/></a>';
+                $renderer->doc .= '<a title="' . $data['title'] . '" class="media" href="' . $img_unresized . '">';
+                $renderer->doc .= '<img src="' . $img . '" class="media' . $data['align'] . '" title="' . $data['title'] . '" alt="' . $data['title'] .  '"';
+                if ($data['width']) {
+                    $renderer->doc .= ' width="' . $data['width'] . $data['percent'] . '"';
+                }
+                if ($data['height']) {
+                    $renderer->doc .= ' height="' . $data['height'] . '"';
+                }
+                if ($data['align'] == 'left') {
+                    $renderer->doc .= ' align="left"';
+                }
+                if ($data['align'] == 'right') {
+                    $renderer->doc .= ' align="right"';
+                }
+                $renderer->doc .= '/></a>';
             }
             return true;
         } else if ($mode == 'odt') {
