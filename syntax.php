@@ -87,6 +87,12 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             $return['title'] = $matches[1];
         }
 
+        // title
+        if (preg_match('/\b(?:type|t)=(\w+)\b/i', $conf, $matches)) {
+            // single word titles
+            $return['type'] = $matches[1];
+        }
+
         $input = join("\n", $lines);
         $return['md5'] = md5($input);
 
@@ -103,6 +109,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
         unset($data['height']);
         unset($data['align']);
         unset($data['title']);
+        unset($data['type']);
         return getcachename(join('x', array_values($data)), ".plantuml.$ext");
     }
 
@@ -122,6 +129,22 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
                 $img_unresized = $img;
             }
             
+            if ($data['type'] == 'svg') {
+                $renderer->doc .= '<object type="image/svg+xml" data="' . $img . '" class="media' . $data['align'] . '" title="' . $data['title'] .  '"';
+                if ($data['width']) {
+                    $renderer->doc .= ' width="' . $data['width'] . $data['percent'] . '"';
+                }
+                if ($data['height']) {
+                    $renderer->doc .= ' height="' . $data['height'] . '"';
+                }
+                if ($data['align'] == 'left') {
+                    $renderer->doc .= ' align="left"';
+                }
+                if ($data['align'] == 'right') {
+                    $renderer->doc .= ' align="right"';
+                }
+                $renderer->doc .= '/>';
+            } else {
             $renderer->doc .= '<a title="' . $data['title'] . '" class="media" href="' . $img_unresized . '">';
             $renderer->doc .= '<img src="' . $img . '" class="media' . $data['align'] . '" title="' . $data['title'] . '" alt="' . $data['title'] .  '"';
             if ($data['width']) {
@@ -137,6 +160,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
                 $renderer->doc .= ' align="right"';
             }
             $renderer->doc .= '/></a>';
+            }
             return true;
         } else if ($mode == 'odt') {
             $src = $this->_imgfile($data);
@@ -152,7 +176,12 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
      * Note this is also called by img.php
      */
     function _imgfile($data) {
-        $cache = $this->_cachename($data, 'png');
+        if ($data['type']) {
+            $type = $data['type'];
+        } else {
+            $type = 'png';
+        }
+        $cache = $this->_cachename($data, $type);
 
         // create the file if needed
         if (!file_exists($cache)) {
@@ -169,8 +198,8 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             clearstatcache();
         }
 
-        if ($data['width'] && $data['percent'] != '%') {
-            $cache = media_resize_image($cache, 'png', $data['width'], $data['height']);
+        if ($data['width'] && $data['percent'] != '%' && $data['type'] != 'svg') {
+            $cache = media_resize_image($cache, $type, $data['width'], $data['height']);
         }
 
         return file_exists($cache) ? $cache : false; 
@@ -205,6 +234,9 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             $command .= " -jar $jar";
             $command .= ' -charset UTF-8';
             $command .= ' -encodeurl';
+            if ($data['type'] == 'svg') {
+                $command .= ' -tsvg';
+            }
             $command .= ' ' . escapeshellarg($in);
             $command .= ' 2>&1';
 
@@ -254,6 +286,9 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
         $command .= ' -Dfile.encoding=UTF-8';
         $command .= " -jar $jar";
         $command .= ' -charset UTF-8';
+        if ($data['type'] == 'svg') {
+            $command .= ' -tsvg';
+        }
         $command .= ' ' . escapeshellarg($in);
         $command .= ' 2>&1';
 
