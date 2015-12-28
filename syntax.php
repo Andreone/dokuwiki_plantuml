@@ -143,7 +143,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
                 if ($data['align'] == 'right') {
                     $renderer->doc .= ' align="right"';
                 }
-                $renderer->doc .= '/>';
+                $renderer->doc .= '></object>';
             } else {
                 $renderer->doc .= '<a title="' . $data['title'] . '" class="media" href="' . $img_unresized . '">';
                 $renderer->doc .= '<img src="' . $img . '" class="media' . $data['align'] . '" title="' . $data['title'] . '" alt="' . $data['title'] .  '"';
@@ -159,7 +159,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
                 if ($data['align'] == 'right') {
                     $renderer->doc .= ' align="right"';
                 }
-                $renderer->doc .= '/></a>';
+                $renderer->doc .= '></img></a>';
             }
             return true;
         } else if ($mode == 'odt') {
