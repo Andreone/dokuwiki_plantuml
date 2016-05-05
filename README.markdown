@@ -60,3 +60,4 @@ Note: Multiple words need to be placed in double quotes.
 
 # Contributors
 * [Willi Schönborn](https://github.com/whiskeysierra): rewrite of the syntax plugin with many additional features
+* [Tomas Kulhanek](https://github.com/tomaskulhanek): fix of remote rendering and added support of proxy
