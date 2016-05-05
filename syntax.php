@@ -5,12 +5,14 @@
  * @license GPL v2 (http://www.gnu.org/licenses/gpl.html)
  * @author  Andreone
  * @author  Willi Schönborn <w.schoenborn@googlemail.com>
+ * @author  Tomas Kulhanek
  */
 
 if (!defined('DOKU_INC')) define('DOKU_INC', realpath(dirname(__FILE__) . '/../../') . '/');
 require_once(DOKU_INC . 'inc/init.php');
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN', DOKU_INC . 'lib/plugins/');
 require_once(DOKU_PLUGIN . 'syntax.php');
+require_once('simple_html_dom.php');
 
 class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
 
@@ -211,7 +213,7 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             $encoded = exec($command, $output, $return_value);
 
             if ($return_value == 0) {
-               $url = "$base_url/image/$encoded"; 
+               $url = "$base_url/img/$encoded";
             } else {
                 dbglog(join("\n", $output), "Encoding url failed: $command");
                 return false;
@@ -221,15 +223,39 @@ class syntax_plugin_plantuml extends DokuWiki_Syntax_Plugin {
             // remove @startuml and @enduml, as they are not required by the webservice 
             $uml = str_replace("@startuml\n", '', $uml);
             $uml = str_replace("\n@enduml", '', $uml);
-            $uml = str_replace("\n", '/', $uml);
+            //$uml = str_replace("\n", '/', $uml);
             $uml = urlencode($uml);
             // decode encoded slashes (or plantuml server won't understand)
             $uml = str_replace('%2F', '/', $uml);
-
-            $url = "$base_url/startuml/$uml";
+            //change the url - post a parameter text to a form - base_url should be plantuml.com/plantuml
+            $url = "$base_url/uml?text=$uml";
+            //$strurl = (string) $url; error_log("tomaton debug url:".$strurl);
+            //$url = "$base_url/startuml/$uml";
         }
+        //get proxy settings if any
+        global $conf;
+        $proxy_host = $conf['proxy']['host'];
+        $proxy_port = $conf['proxy']['port'];
+        //error_log("tomaton debug proxy host url3:".$proxy_host); error_log("tomaton debug proxy host port3:".$proxy_port);
 
-        $img = $http->get($url);
+        if ($proxy_host) {
+            $aContext = array(
+                'http' => array(
+                    'proxy' => "tcp://$proxy_host:$proxy_port",
+                    'request_fulluri' => true, //TODO add basic auth if defined
+                ),
+            );
+            $cxContext = stream_context_create($aContext);
+        } else $cxContext = null;
+        // Create DOM from URL or file
+        $html = file_get_html($url,false,$cxContext);
+        //find img element in returned html, which contains link to the PNG image of UML generated
+        $element = $html->find('img',1);
+        $imgurl = $element->src;
+
+        //$imgurlstr = (string) $imgurl; error_log("tomaton debug img url:".$imgurlstr);
+        $img = $http->get($imgurl);
+        //$img = $http->get($url);
         return $img ? io_saveFile($out, $img) : false;
     }
 
