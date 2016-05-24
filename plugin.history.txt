@@ -1,3 +1,9 @@
+date    2015-06-19
+
+  * Update default remote URL
+  * Update .gitignore
+____
+
 date    2011-07-16
 
   * Fixed bug: PlantUML server rendering was not working due to encoding (slashes were converted to %2F and PlantUML doesn't like that)
