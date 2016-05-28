@@ -13,7 +13,11 @@ $plugin = plugin_load('syntax', 'plantuml');
 $cache  = $plugin->_imgfile($data);
 
 if ($cache) {
-    header('Content-Type: image/png;');
+    if ($data['type'] == 'svg') {
+    	header('Content-Type: image/svg+xml;');
+    } else {
+    	header('Content-Type: image/png;');
+    }
     header('Expires: ' . gmdate('D, d M Y H:i:s', time() + max($conf['cachetime'], 3600)) . ' GMT');
     header('Cache-Control: public, proxy-revalidate, no-transform, max-age=' . max($conf['cachetime'], 3600));
     header('Pragma: public');
