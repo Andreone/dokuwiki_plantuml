@@ -1,3 +1,8 @@
+date    2015-12-18
+
+  * Fix remote rendering
+____
+
 date    2011-07-16
 
   * Fixed bug: PlantUML server rendering was not working due to encoding (slashes were converted to %2F and PlantUML doesn't like that)

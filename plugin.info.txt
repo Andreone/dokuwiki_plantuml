@@ -1,7 +1,7 @@
 base    plantuml
-author  Nicolas FAUVET
+author  Nicolas FAUVET dhu
 email   nfauvet@free.fr
-date    2011-07-16
+date    2015-12-18
 name    PlantUML plugin
 desc    Draws UML graphs directly into the wiki using PlantUML http://plantuml.sourceforge.net
 url     http://www.dokuwiki.org/plugin:plantuml
